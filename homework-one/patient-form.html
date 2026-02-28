@@ -22,9 +22,33 @@ Description: This is the patient form page where patients can fill out their inf
         <p>
             Date:
             <script>
-                document.write(new Date().toLocaleDateString());
+                const today = new Date();
+
+                const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+                const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sept","Oct","Nov","Dec"];
+
+                let dayName = days[today.getDay()];
+                let monthName = months[today.getMonth()];
+                let date = today.getDate();
+                let year = today.getFullYear();
+
+                // Add st, nd, rd, th
+                function getOrdinal(n) {
+                if (n > 3 && n < 21) return "th";
+                switch (n % 10) {
+                    case 1: return "st";
+                    case 2: return "nd";
+                    case 3: return "rd";
+                    default: return "th";
+            }
+        }
+
+        document.write(dayName + ", " + monthName + " " + date + getOrdinal(date) + ", " + year);
+        
             </script>
+
         </p>
+
     </div>
 
     <!-- Patient Registration Form -->
