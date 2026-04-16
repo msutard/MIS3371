@@ -1,0 +1,289 @@
+<!--
+Program name: homework3.html
+Author: Ashley Ton
+Date Created: 2026-03-23
+Date Modified: 2026-04-15
+Description: patient registration form for homework 3
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Registration Form</title>
+    <link rel="stylesheet" href="style-hw3.css">
+    <script defer src="script-hw3.js"></script>
+</head>
+<body>
+    <div id="top">
+        <img src="vitahealthlogo.png" alt="Vita Health Logo" width="200">
+        <div id="dateDisplay">
+            <p>
+                Date:
+                <script>
+                    const today = new Date();
+                    const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+                    const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sept","Oct","Nov","Dec"];
+                    const dayName = days[today.getDay()];
+                    const monthName = months[today.getMonth()];
+                    const date = today.getDate();
+                    const year = today.getFullYear();
+                    function getOrdinal(n) {
+                        if (n > 3 && n < 21) return "th";
+                        switch (n % 10) {
+                            case 1: return "st";
+                            case 2: return "nd";
+                            case 3: return "rd";
+                            default: return "th";
+                        }
+                    }
+                    document.write(dayName + ", " + monthName + " " + date + getOrdinal(date) + ", " + year);
+                </script>
+            </p>
+        </div>
+    </div>
+
+    <div id="form-box">
+        <h2>Patient Registration Form</h2>
+        <form id="patientForm" action="thankyou-hw3.html" novalidate onsubmit="return finalSubmitCheck(event)">
+            <table>
+                <tr><th colspan="6">Patient Information</th></tr>
+                <tr>
+                    <td>First Name:</td>
+                    <td>
+                        <input id="firstName" name="firstName" type="text" maxlength="30" required
+                            title="Enter 1 to 30 characters. Letters, apostrophes, and dashes only."
+                            pattern="[A-Za-z'\-]{1,30}">
+                        <span class="hint">Letters, apostrophes, and dashes only.</span>
+                        <span class="error" id="firstNameError"></span>
+                    </td>
+                    <td>Middle Initial:</td>
+                    <td>
+                        <input id="middleInitial" name="middleInitial" type="text" maxlength="1"
+                            title="Optional. Enter one letter only."
+                            pattern="[A-Za-z]?">
+                        <span class="hint">Optional. One letter only.</span>
+                        <span class="error" id="middleInitialError"></span>
+                    </td>
+                    <td>Last Name:</td>
+                    <td>
+                        <input id="lastName" name="lastName" type="text" maxlength="30" required
+                            title="Enter 1 to 30 characters. Letters, apostrophes, and dashes only."
+                            pattern="[A-Za-z'\-]{1,30}">
+                        <span class="hint">Letters, apostrophes, and dashes only.</span>
+                        <span class="error" id="lastNameError"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Date of Birth:</td>
+                    <td>
+                        <input id="dob" name="dob" type="date" required
+                            title="Choose a valid birth date. It cannot be in the future or more than 120 years ago.">
+                        <span class="hint">Must be within the last 120 years and not in the future.</span>
+                        <span class="error" id="dobError"></span>
+                    </td>
+                    <td>SSN / ID:</td>
+                    <td>
+                        <input id="ssn" name="ssn" type="password" maxlength="11" required inputmode="numeric"
+                            title="Enter a 9-digit number. Dashes will be added automatically as you type."
+                            pattern="\d{3}-\d{2}-\d{4}">
+                        <span class="hint">9 digits. Auto-formats as ###-##-####.</span>
+                        <span class="error" id="ssnError"></span>
+                    </td>
+                    <td>User ID:</td>
+                    <td>
+                        <input id="userId" name="userId" type="text" maxlength="20" required
+                            title="5 to 20 characters. Cannot start with a number. Letters, numbers, underscores, and dashes only."
+                            pattern="[A-Za-z][A-Za-z0-9_-]{4,19}">
+                        <span class="hint">5 to 20 characters. Start with a letter.</span>
+                        <span class="error" id="userIdError"></span>
+                    </td>
+                </tr>
+
+                <tr><th colspan="6">Registration Information</th></tr>
+                <tr>
+                    <td>Email Address:</td>
+                    <td colspan="2">
+                        <input id="email" name="email" type="email" required
+                            title="Enter a valid email in the format name@domain.tld"
+                            pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$">
+                        <span class="hint">Format: name@domain.tld</span>
+                        <span class="error" id="emailError"></span>
+                    </td>
+                    <td>Phone Number:</td>
+                    <td colspan="2">
+                        <input id="phone" name="phone" type="tel" required placeholder="000-000-0000"
+                            title="Enter a 10-digit phone number in the format 000-000-0000."
+                            pattern="\d{3}-\d{3}-\d{4}">
+                        <span class="hint">10 digits. Auto-formats as 000-000-0000.</span>
+                        <span class="error" id="phoneError"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Password:</td>
+                    <td colspan="2">
+                        <input id="password" name="password" type="password" required maxlength="30"
+                            title="At least 8 characters with at least one uppercase letter, one lowercase letter, and one number.">
+                        <span class="hint">At least 8 chars with upper, lower, and number.</span>
+                        <span class="error" id="passwordError"></span>
+                    </td>
+                    <td>Re-enter Password:</td>
+                    <td colspan="2">
+                        <input id="confirmPassword" name="confirmPassword" type="password" required maxlength="30"
+                            title="Re-enter the same password to confirm it.">
+                        <span class="hint">Must exactly match your password.</span>
+                        <span class="error" id="confirmPasswordError"></span>
+                    </td>
+                </tr>
+
+                <tr><th colspan="6">Address</th></tr>
+                <tr>
+                    <td>Address Line 1:</td>
+                    <td colspan="5">
+                        <input id="address1" name="address1" type="text" required maxlength="30"
+                            title="Required. Enter 2 to 30 characters."
+                            pattern=".{2,30}">
+                        <span class="hint">Required. 2 to 30 characters.</span>
+                        <span class="error" id="address1Error"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Address Line 2:</td>
+                    <td colspan="5">
+                        <input id="address2" name="address2" type="text" maxlength="30"
+                            title="Optional. If entered, use 2 to 30 characters."
+                            pattern="^.{0}$|^.{2,30}$">
+                        <span class="hint">Optional. If entered, use 2 to 30 characters.</span>
+                        <span class="error" id="address2Error"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>City:</td>
+                    <td>
+                        <input id="city" name="city" type="text" required maxlength="30"
+                            title="Required. Enter 2 to 30 characters for the city name."
+                            pattern=".{2,30}">
+                        <span class="hint">Required. 2 to 30 characters.</span>
+                        <span class="error" id="cityError"></span>
+                    </td>
+                    <td>State:</td>
+                    <td>
+                        <select id="state" name="state" required title="Select a state or territory.">
+                            <option value="">Select</option>
+                            <option value="AL">AL</option><option value="AK">AK</option><option value="AZ">AZ</option><option value="AR">AR</option>
+                            <option value="CA">CA</option><option value="CO">CO</option><option value="CT">CT</option><option value="DE">DE</option>
+                            <option value="DC">DC</option><option value="FL">FL</option><option value="GA">GA</option><option value="HI">HI</option>
+                            <option value="ID">ID</option><option value="IL">IL</option><option value="IN">IN</option><option value="IA">IA</option>
+                            <option value="KS">KS</option><option value="KY">KY</option><option value="LA">LA</option><option value="ME">ME</option>
+                            <option value="MD">MD</option><option value="MA">MA</option><option value="MI">MI</option><option value="MN">MN</option>
+                            <option value="MS">MS</option><option value="MO">MO</option><option value="MT">MT</option><option value="NE">NE</option>
+                            <option value="NV">NV</option><option value="NH">NH</option><option value="NJ">NJ</option><option value="NM">NM</option>
+                            <option value="NY">NY</option><option value="NC">NC</option><option value="ND">ND</option><option value="OH">OH</option>
+                            <option value="OK">OK</option><option value="OR">OR</option><option value="PA">PA</option><option value="PR">PR</option>
+                            <option value="RI">RI</option><option value="SC">SC</option><option value="SD">SD</option><option value="TN">TN</option>
+                            <option value="TX">TX</option><option value="UT">UT</option><option value="VT">VT</option><option value="VA">VA</option>
+                            <option value="WA">WA</option><option value="WV">WV</option><option value="WI">WI</option><option value="WY">WY</option>
+                        </select>
+                        <span class="hint">Select one state, DC, or PR.</span>
+                        <span class="error" id="stateError"></span>
+                    </td>
+                    <td>Zip Code:</td>
+                    <td>
+                        <input id="zip" name="zip" type="text" required maxlength="5" inputmode="numeric"
+                            placeholder="77002" title="Enter 5 digits only."
+                            pattern="\d{5}">
+                        <span class="hint">5 digits only.</span>
+                        <span class="error" id="zipError"></span>
+                    </td>
+                </tr>
+
+                <tr><th colspan="6">Health Information</th></tr>
+                <tr>
+                    <td>Medical History:</td>
+                    <td colspan="5" class="choices-cell">
+                        <label><input type="checkbox" name="history" value="Asthma"> Asthma</label>
+                        <label><input type="checkbox" name="history" value="Diabetes Type 1"> Diabetes 1</label>
+                        <label><input type="checkbox" name="history" value="Diabetes Type 2"> Diabetes 2</label>
+                        <label><input type="checkbox" name="history" value="Flu"> Flu</label>
+                        <label><input type="checkbox" name="history" value="Hypertension"> Hypertension</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Gender:</td>
+                    <td colspan="5" class="choices-cell">
+                        <label><input type="radio" name="sex" value="Female"> Female</label>
+                        <label><input type="radio" name="sex" value="Male"> Male</label>
+                        <label><input type="radio" name="sex" value="Other"> Other</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Vaccinated?</td>
+                    <td colspan="5" class="choices-cell">
+                        <label><input type="radio" name="vaccinated" value="Yes"> Yes</label>
+                        <label><input type="radio" name="vaccinated" value="No"> No</label>
+                        <label><input type="radio" name="vaccinated" value="Unsure"> Unsure</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Insurance Status:</td>
+                    <td colspan="5" class="choices-cell">
+                        <label><input type="radio" name="insurance" value="Insured"> Insured</label>
+                        <label><input type="radio" name="insurance" value="Not Insured"> Not Insured</label>
+                        <label><input type="radio" name="insurance" value="Pending"> Pending</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Health Status (1-10):</td>
+                    <td colspan="5">
+                        <div class="slider-wrap">
+                            <input id="healthStatus" name="healthStatus" type="range" min="1" max="10" value="5">
+                            <span id="rangeValue">5</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Health Concerns:</td>
+                    <td colspan="5">
+                        <textarea id="concern" name="concern" rows="4" cols="50" title="Optional. Describe symptoms or concerns in 2 to 300 characters if entered."></textarea>
+                        <span class="hint">Optional. If entered, use 2 to 300 characters.</span>
+                        <span class="error" id="concernError"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6" class="button-row">
+                        <input type="button" value="Review" onclick="reviewForm()">
+                        <input type="button" id="validateButton" value="Validate" onclick="handleValidateClick()">
+                        <input type="submit" id="submitButton" value="Submit" hidden>
+                        <input type="reset" value="Start Over">
+                        <div id="formStatus" class="status-message"></div>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+    <div id="reviewBox" style="display:none;">
+        <h2>Please Review This Information</h2>
+        <table>
+            <tr><td>Name:</td><td id="reviewName"></td></tr>
+            <tr><td>DOB:</td><td id="reviewDOB"></td></tr>
+            <tr><td>SSN:</td><td id="reviewSSN"></td></tr>
+            <tr><td>User ID:</td><td id="reviewUserId"></td></tr>
+            <tr><td>Address:</td><td id="reviewAddress"></td></tr>
+            <tr><td>Email:</td><td id="reviewEmail"></td></tr>
+            <tr><td>Phone:</td><td id="reviewPhone"></td></tr>
+            <tr><td>Medical History:</td><td id="reviewHistory"></td></tr>
+            <tr><td>Gender:</td><td id="reviewGender"></td></tr>
+            <tr><td>Vaccinated:</td><td id="reviewVaccinated"></td></tr>
+            <tr><td>Insurance:</td><td id="reviewInsurance"></td></tr>
+            <tr><td>Health Status:</td><td id="reviewHealthStatus"></td></tr>
+            <tr><td>Concern:</td><td id="reviewConcern"></td></tr>
+        </table>
+    </div>
+
+    <div id="footer">
+        <hr>
+        <p>Copyright &copy; 2026 Vita Health. All rights reserved.</p>
+    </div>
+</body>
+</html>
