@@ -1,0 +1,214 @@
+<!--
+Program name: patient-form.html
+Author: Ashley Ton
+Date Created: 2026-02-20
+Date Modified: 2026-02-20
+Description: This is the patient form page where patients can fill out their information and submit it to
+</p> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Patient Registration Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <div id="top">
+        <img src="vitahealthlogo.png" alt="Vita Health Logo" width="200"><br>
+        <p>
+            Date:
+            <script>
+                const today = new Date();
+
+                const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+                const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sept","Oct","Nov","Dec"];
+
+                let dayName = days[today.getDay()];
+                let monthName = months[today.getMonth()];
+                let date = today.getDate();
+                let year = today.getFullYear();
+
+                // Add st, nd, rd, th
+                function getOrdinal(n) {
+                if (n > 3 && n < 21) return "th";
+                switch (n % 10) {
+                    case 1: return "st";
+                    case 2: return "nd";
+                    case 3: return "rd";
+                    default: return "th";
+            }
+        }
+
+        document.write(dayName + ", " + monthName + " " + date + getOrdinal(date) + ", " + year);
+        
+            </script>
+
+        </p>
+
+    </div>
+
+    <!-- Patient Registration Form -->
+    <div id="form-box"> 
+
+        <h2>Patient Registration Form</h2>
+
+        <form action="thankyou.html">
+
+            <table>
+
+                <tr>
+                    <td>First Name:</td>
+                    <td><input type="text" maxlength="30"></td>
+
+                    <td>Middle Initial:</td>
+                    <td><input type="text" maxlength="1"></td>
+
+                    <td>Last Name:</td>
+                    <td><input type="text" maxlength="30"></td>
+            </tr>
+
+            <tr>
+                <td> Date of Birth:</td>
+                <td><input type="text" placeholder="MM/DD/YYYY"></td>
+
+                <td> SSN:</td>
+                <td><input type="password" minlength="9" maxlength="11"></td>
+
+                <td> User ID:</td>
+                <td><input type="text" maxlength="20"></td>
+            </tr>
+
+            <tr>
+                <td>Address Line 1:</td>
+                 <td colspan="5">
+                    <input type="text" maxlength="30"></td>
+            </tr>
+
+            <tr>
+                <td>Address Line 2:</td>
+                <td colspan="5">
+                    <input type="text" maxlength="30"></td>
+            </tr>
+
+            <tr>
+                <td>City:</td>
+                <td><input type="text" maxlength="30"></td>
+
+                <td>State:</td>
+                <td>
+                    <select>
+                        <option value="">Select</option>
+                        <option>AL</option><option>AK</option><option>AZ</option><option>AR</option>
+                        <option>CA</option><option>CO</option><option>CT</option><option>DE</option>
+                        <option>FL</option><option>GA</option><option>HI</option><option>ID</option>
+                        <option>IL</option><option>IN</option><option>IA</option><option>KS</option>
+                        <option>KY</option><option>LA</option><option>ME</option><option>MD</option>
+                        <option>MA</option><option>MI</option><option>MN</option><option>MS</option>
+                        <option>MO</option><option>MT</option><option>NE</option><option>NV</option>
+                        <option>NH</option><option>NJ</option><option>NM</option><option>NY</option>
+                        <option>NC</option><option>ND</option><option>OH</option><option>OK</option>
+                        <option>OR</option><option>PA</option><option>RI</option><option>SC</option>
+                        <option>SD</option><option>TN</option><option>TX</option><option>UT</option>
+                        <option>VT</option><option>VA</option><option>WA</option><option>WV</option>
+                        <option>WI</option><option>WY</option>
+                    </select>
+                </td>
+
+                <td>Zip Code:</td>
+                <td><input type="text" minlength="5" maxlength="10"></td>
+
+            </tr>
+
+                <td>Email Address:</td>
+                <td colspan="5">
+                    <input type="email" placeholder="name@gomain.tld"></td>
+            
+            <tr>
+                <td>Password:</td>
+                <td><input type="password"></td>
+
+                <td>Re-Enter Password:</td>
+                <td><input type="password" name="confirm_password"></td>
+
+                <td></td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <td>Health Concern:</td>
+                <td colspan="5">
+                    <textarea rows="3" cols="50"></textarea>
+                </td>
+            </tr>
+
+            <tr>
+            <td>Medical History (Check all that apply):</td>
+                <td colspan="5">
+                    <input type="checkbox"> Asthma
+                    <input type="checkbox"> Diabetes Type 1
+                    <input type="checkbox"> Diabetes Type 2
+                    <input type="checkbox"> Flu
+                    <input type="checkbox"> Hypertension
+
+                </td>
+            </tr>
+
+            <tr>
+                <td>Gender:</td>
+                <td colspan="5">
+                    <input type="radio" name="gender" value="male"> Male
+                    <input type="radio" name="gender" value="female"> Female
+                    <input type="radio" name="gender" value="other"> Other
+                </td>
+            </tr>
+
+            <tr>
+                <td>Have You Been Vaccinated?</td>
+                <td colspan="5">
+                    <input type="radio" name="vaccinated" value="yes"> Yes
+                    <input type="radio" name="vaccinated" value="no"> No
+                </td>
+            </tr>
+
+            <tr>
+                <td>Do You Have Insurance?</td>
+                <td colspan="5">
+                    <input type="radio" name="insurance" value="yes"> Yes
+                    <input type="radio" name="insurance" value="no"> No
+                </td>
+            </tr>
+
+            <tr>
+                <td>Health Status (1-10):</td>
+                <td colspan="5">
+                    <input type="range" min="1" max="10">
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="6" align="center">
+                <br>
+                <input type="reset" value="Start Over">
+                <input type="submit" value="Submit">
+                </td>
+            </tr>
+
+        </table>
+
+    </form>
+
+    </div>
+
+    <!-- Footer -->
+    <div id="footer">
+    <hr>
+        Vita Health &nbsp;&nbsp;
+        <button>Contact Us</button>
+
+    </div>
+</body>
+</html>
